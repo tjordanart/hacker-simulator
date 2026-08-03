@@ -1,0 +1,107 @@
+import random      # Used to generate random numbers and characters
+import string      # Provides collections like uppercase letters and digits
+import time        # Allows delays to simulate loading animations
+
+# ==================================================
+# Cyber Ops Terminal Simulation
+# A fictional hacking animation created for learning
+# purposes. No real hacking is performed.
+# ==================================================
+
+print("====================================")
+print("   CYBER OPS TERMINAL v3.7")
+print("====================================")
+time.sleep(1)
+
+# Simulate connecting to a remote server
+print("\nInitializing secure connection...")
+time.sleep(1)
+
+# Fake loading bar
+for percent in range(0, 101, 5):
+    print(f"\rLoading... {percent}%", end="")
+    time.sleep(0.08)
+
+print("\nConnection Established.\n")
+time.sleep(1)
+
+# Different stages of the fictional hacking process
+loading_steps = [
+    "Locating target...",
+    "Scanning open ports...",
+    "Bypassing firewall...",
+    "Decrypting encrypted packets...",
+    "Reading server data..."
+]
+
+# Loop through each stage
+for step in loading_steps:
+    print(step)
+    time.sleep(random.uniform(0.8, 1.5))
+
+    # Generate random hexadecimal strings to simulate
+    # encrypted data scrolling across the terminal
+    for _ in range(5):
+        code = ''.join(
+            random.choice("0123456789ABCDEF")
+            for _ in range(32)
+        )
+        print(code)
+        time.sleep(0.08)
+
+    print()
+
+# Simulate searching for login credentials
+print("Searching for credentials...")
+time.sleep(2)
+
+# The password that the animation will "discover"
+password = "ACCESS2026"
+
+# Stores letters that have already been guessed correctly
+found = ""
+
+# Reveal the password one character at a time
+for letter in password:
+
+    # Keep randomly guessing until the correct
+    # character is selected
+    while True:
+        guess = random.choice(string.ascii_uppercase + string.digits)
+
+        # Rewrite the current line to create an animation
+        print("\r" + found + guess, end="")
+
+        time.sleep(0.02)
+
+        # Once the correct character is found,
+        # permanently add it to the revealed password
+        if guess == letter:
+            found += letter
+            break
+
+print("\n")
+time.sleep(1)
+
+# Display successful login message
+print("==============================")
+print("ACCESS GRANTED")
+print("==============================")
+print("User: Administrator")
+print("Security Level: MAXIMUM")
+print("Session Started Successfully")
+
+time.sleep(1)
+
+# Simulate downloading files
+print("\nDownloading confidential files...")
+
+for i in range(0, 101, 2):
+    print(f"\rDownloading... {i}%", end="")
+    time.sleep(0.05)
+
+print("\n")
+print("Download Complete.")
+
+# Clarify that this is only a programming project
+print("\n*** THIS IS A FICTIONAL HACKING SIMULATION ***")
