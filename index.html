@@ -794,13 +794,21 @@ button:disabled {
 
 
 let playerName = "";
+
 let level = 1;
+
 let xp = 0;
+
 let money = 500;
+
 let heat = 0;
+
 let energy = 100;
+
 let mission = 1;
+
 let busy = false;
+
 let gameStarted = false;
 
 
@@ -1033,6 +1041,25 @@ async function startGame() {
     "#293341";
 
 
+  /*
+    Always initialize a completely
+    fresh run when starting.
+  */
+
+  level = 1;
+
+  xp = 0;
+
+  money = 500;
+
+  heat = 0;
+
+  energy = 100;
+
+  mission = 1;
+
+  busy = false;
+
   playerName =
     enteredName;
 
@@ -1083,6 +1110,8 @@ async function startGame() {
 
 }
 
+
+/* START EVENTS */
 
 startButton.addEventListener(
   "click",
@@ -1390,7 +1419,9 @@ function lockButtons() {
   busy = true;
 
   action1.disabled = true;
+
   action2.disabled = true;
+
   action3.disabled = true;
 
 }
@@ -1401,7 +1432,9 @@ function unlockButtons() {
   busy = false;
 
   action1.disabled = false;
+
   action2.disabled = false;
+
   action3.disabled = false;
 
 }
@@ -1570,6 +1603,7 @@ action1.addEventListener(
       addMoney(data.reward);
 
       addHeat(15);
+
 
       await typeLine(
         "Final operation completed.",
@@ -1802,7 +1836,7 @@ action3.addEventListener(
 );
 
 
-/* STATS BUTTON */
+/* STATS */
 
 document
   .getElementById("statsButton")
@@ -1969,7 +2003,6 @@ document
 
       lockButtons();
 
-
       clearTerminal();
 
 
@@ -1992,17 +2025,39 @@ document
 
 
       /*
-        Return to the start screen.
+        Reset the entire game.
 
-        This fixes the original problem where
-        disconnecting permanently ended the game.
+        This is important because a completed
+        campaign sets mission to 6.
+
+        Without resetting mission to 1,
+        the next operator would immediately
+        see the campaign-complete screen.
       */
 
 
-      gameStarted = false;
+      playerName = "";
+
+      level = 1;
+
+      xp = 0;
+
+      money = 500;
+
+      heat = 0;
+
+      energy = 100;
+
+      mission = 1;
 
       busy = false;
 
+      gameStarted = false;
+
+
+      /*
+        Return to the operator screen.
+      */
 
       gameArea.style.display =
         "none";
@@ -2011,9 +2066,25 @@ document
         "block";
 
 
+      /*
+        Clear the previous operator.
+      */
+
       nameInput.value =
         "";
 
+
+      /*
+        Reset the visible statistics.
+      */
+
+      updateStats();
+
+
+      /*
+        Put the cursor back into
+        the operator name field.
+      */
 
       nameInput.focus();
 
@@ -2032,7 +2103,9 @@ async function showCampaignComplete() {
 
 
   action1.disabled = true;
+
   action2.disabled = true;
+
   action3.disabled = true;
 
 
@@ -2139,4 +2212,5 @@ setTimeout(
 </script>
 
 </body>
+
 </html>
