@@ -1,105 +1,188 @@
-Cyber Ops Terminal v3.7
+# Hacker Simulator
 
-A fictional cybersecurity-themed terminal simulation built in Python that creates an interactive command-line experience using animations, random data generation, and timed sequences.
+A fictional cybersecurity-themed terminal game built in Python.
 
-This project was created as a programming exercise to practice Python fundamentals while designing a cinematic terminal interface. It does not perform any real hacking, network scanning, password cracking, or unauthorized access.
+Hacker Simulator is an interactive command-line game where the player takes on fictional cybersecurity contracts, makes decisions, completes missions, earns money and experience, and manages their heat and energy levels.
 
-⸻
+The project was created as a programming exercise to practice Python fundamentals while building a more complete game system with progression, random outcomes, terminal animations, and interactive gameplay.
 
-Features
+This project does not perform real hacking, network scanning, password cracking, or unauthorized access.
 
-* Simulated secure connection sequence
-* Animated loading progress bars
-* Fictional cybersecurity operation stages
-* Random hexadecimal data generation
-* Simulated credential discovery animation
-* Terminal-style user interface
-* Timed animations for a realistic command-line experience
-* Clean and organized Python structure
+---
 
-⸻
+## Features
 
-Technologies Used
+* Interactive player name and game setup
+* Five-mission campaign
+* Multiple choices and mission paths
+* Player level and experience system
+* Money and reward system
+* Energy management system
+* Heat and detection system
+* Randomized mission outcomes
+* Multiple possible endings
+* Colorized terminal interface
+* Character-by-character terminal typing
+* Timed system messages and animations
+* Mission difficulty progression
+* Rest system for recovering energy
+* Different outcomes based on player decisions
+
+---
+
+## Technologies Used
 
 * Python 3
-* random - Generates randomized terminal data and simulated activity
-* string - Provides character sets for password simulation
-* time - Controls delays and terminal animations
-* Loops and conditional logic - Controls program flow and animations
+* `random` - Generates randomized mission outcomes
+* `time` - Controls typing effects and timed sequences
+* ANSI escape codes - Creates colored terminal output
+* Functions - Organizes reusable game systems
+* Loops - Controls the main game cycle
+* Conditional logic - Controls decisions and outcomes
+* Variables - Stores player statistics and game state
+* Lists and data structures - Used to organize game information
+* User input - Allows the player to interact with the game
 
-⸻
+---
 
-How It Works
+## How It Works
 
-Cyber Ops Terminal simulates a fictional cybersecurity operation from start to finish.
+The player begins by creating a hacker name and entering the fictional cybersecurity simulation.
 
-The program:
+The game then tracks several player statistics:
 
-* Displays a fake system connection sequence
-* Runs through simulated security operation steps
-* Generates random hexadecimal strings to mimic encrypted data
-* Performs a fictional credential discovery animation
-* Displays a successful access message
-* Simulates a file download sequence
+* **Level** - Determines progression through the game
+* **XP** - Earned by completing actions and missions
+* **Money** - Earned from successful contracts
+* **Energy** - Used when performing mission actions
+* **Heat** - Represents how much attention the player has attracted
 
-All actions are visual simulations created for programming practice.
+Players can investigate fictional systems, analyze security, attempt simulated access, or make other decisions during missions.
 
-⸻
+Different choices have different success rates and consequences.
 
-How to Run
+---
 
-1. Make sure Python 3 is installed.
-2. Clone the repository:
+## Game Progression
 
+The game contains five fictional missions.
+
+Each mission introduces new challenges and gives the player different choices.
+
+Successful actions can provide:
+
+* XP
+* Money
+* Mission progression
+
+Failed actions can increase the player's heat and make future decisions more difficult.
+
+The player's final heat level determines which ending they receive.
+
+---
+
+## Terminal Animation
+
+The game uses a custom typing function to display important terminal messages one character at a time.
+
+This creates a more cinematic command-line experience while demonstrating Python's `time.sleep()` function and terminal output control.
+
+Example:
+
+```text
+> Initializing fictional scanner...
+> Searching simulated services...
+> Scan complete.
+```
+
+Different message types use different terminal colors to make important information easier to recognize.
+
+---
+
+## How to Run
+
+Make sure Python 3 is installed.
+
+Clone the repository:
+
+```bash
 git clone https://github.com/Tjordanart/hacker-simulator.git
+```
 
-3. Navigate to the project folder:
+Navigate to the project folder:
 
+```bash
 cd hacker-simulator
+```
 
-4. Run the program:
+Run the game:
 
-python cyber_ops_terminal.py
+```bash
+python hacker_simulator_v2.py
+```
 
-⸻
+You can also run the Python file directly through an IDE such as PyCharm.
 
-Purpose of This Project
+---
+
+## Project Evolution
+
+This project began as a simple fictional cybersecurity terminal simulation.
+
+The original version focused primarily on terminal animations and simulated cybersecurity activity.
+
+Version 2 expands the project into a complete interactive game by adding:
+
+* Player progression
+* Missions
+* XP
+* Money
+* Energy
+* Heat
+* Randomized outcomes
+* Multiple endings
+* Player decisions
+* More structured game logic
+* Improved terminal presentation
+
+The next stage of the project is to rebuild the game as a web-based application using JavaScript, HTML, and CSS.
+
+This will allow the same game concepts to be presented through an interactive browser interface instead of a Python terminal.
+
+---
+
+## Purpose of This Project
 
 This project was created to practice:
 
-* Python loops
+* Python programming
 * Functions
-* String manipulation
-* Random data generation
-* Terminal animations
-* Timing controls
-* Program organization
-* Creating interactive command-line applications
+* Variables
+* Loops
+* Conditional statements
+* User input
+* Random number generation
+* Game state management
+* Object-oriented-style organization
+* Timing and animations
+* Terminal interfaces
+* Building larger programs from smaller systems
 
-⸻
+It also serves as a foundation for translating a Python project into JavaScript for a web-based version.
 
-Future Improvements
+---
 
-Possible additions:
+## Disclaimer
 
-* User-controlled mission paths
-* Multiple simulation scenarios
-* Interactive command system
-* Custom terminal themes
-* More advanced animations
-* Save and load functionality
+Hacker Simulator is a fictional cybersecurity simulation created for educational and entertainment purposes.
 
-⸻
+No real systems, networks, accounts, passwords, or devices are accessed, scanned, attacked, or compromised.
 
-Disclaimer
+All cybersecurity activities represented in the game are simulated.
 
-This is a fictional cybersecurity simulation created for educational and entertainment purposes.
+---
 
-No real systems are accessed, scanned, attacked, or compromised. This project only creates the appearance of a cybersecurity terminal experience.
-
-⸻
-
-Author
+## Author
 
 Created by Tyler Jordan
 
