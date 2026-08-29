@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
 <title>Hacker Simulator</title>
 
 <style>
@@ -376,8 +383,6 @@ button:disabled {
     font-size: 9px;
   }
 
-  /* START */
-
   #startScreen {
     padding: 31px 15px;
   }
@@ -413,8 +418,6 @@ button:disabled {
     font-size: 7px;
   }
 
-  /* STATS */
-
   .stat {
     padding: 10px 3px;
   }
@@ -428,8 +431,6 @@ button:disabled {
     font-size: 13px;
   }
 
-  /* CONTENT */
-
   #content {
     padding: 12px;
   }
@@ -438,8 +439,6 @@ button:disabled {
     margin-bottom: 7px;
     font-size: 7px;
   }
-
-  /* TERMINAL */
 
   #terminal {
     height: 135px;
@@ -451,8 +450,6 @@ button:disabled {
     font-size: 10px;
     line-height: 1.35;
   }
-
-  /* MISSION */
 
   #mission {
     margin-top: 11px;
@@ -492,8 +489,6 @@ button:disabled {
     font-size: 8px;
   }
 
-  /* BUTTONS */
-
   #actions {
     gap: 6px;
   }
@@ -511,7 +506,7 @@ button:disabled {
 }
 
 
-/* SHORT PHONE */
+/* SHORT PHONES */
 
 @media (max-width: 600px) and (max-height: 700px) {
 
@@ -563,6 +558,7 @@ button:disabled {
 }
 
 </style>
+
 </head>
 
 
@@ -570,8 +566,6 @@ button:disabled {
 
 <div id="game">
 
-
-  <!-- HEADER -->
 
   <div id="header">
 
@@ -630,87 +624,36 @@ button:disabled {
   </div>
 
 
-  <!-- GAME AREA -->
+  <!-- GAME -->
 
   <div id="gameArea">
 
 
-    <!-- PLAYER STATS -->
-
     <div id="stats">
 
       <div class="stat">
-
-        <span class="statLabel">
-          LEVEL
-        </span>
-
-        <span
-          class="statValue"
-          id="level">
-          1
-        </span>
-
+        <span class="statLabel">LEVEL</span>
+        <span class="statValue" id="level">1</span>
       </div>
 
-
       <div class="stat">
-
-        <span class="statLabel">
-          XP
-        </span>
-
-        <span
-          class="statValue"
-          id="xp">
-          0
-        </span>
-
+        <span class="statLabel">XP</span>
+        <span class="statValue" id="xp">0</span>
       </div>
 
-
       <div class="stat">
-
-        <span class="statLabel">
-          MONEY
-        </span>
-
-        <span
-          class="statValue"
-          id="money">
-          $500
-        </span>
-
+        <span class="statLabel">MONEY</span>
+        <span class="statValue" id="money">$500</span>
       </div>
 
-
       <div class="stat">
-
-        <span class="statLabel">
-          HEAT
-        </span>
-
-        <span
-          class="statValue"
-          id="heat">
-          0%
-        </span>
-
+        <span class="statLabel">HEAT</span>
+        <span class="statValue" id="heat">0%</span>
       </div>
 
-
       <div class="stat">
-
-        <span class="statLabel">
-          ENERGY
-        </span>
-
-        <span
-          class="statValue"
-          id="energy">
-          100%
-        </span>
-
+        <span class="statLabel">ENERGY</span>
+        <span class="statValue" id="energy">100%</span>
       </div>
 
     </div>
@@ -719,16 +662,12 @@ button:disabled {
     <div id="content">
 
 
-      <!-- TERMINAL -->
-
       <div class="label">
         SIMULATION TERMINAL
       </div>
 
       <div id="terminal"></div>
 
-
-      <!-- MISSION -->
 
       <div id="mission">
 
@@ -816,8 +755,6 @@ button:disabled {
       </div>
 
 
-      <!-- MENU -->
-
       <div id="menu">
 
         <button id="statsButton">
@@ -844,17 +781,17 @@ button:disabled {
 <script>
 
 /*
-  Hacker Simulator
+  HACKER SIMULATOR
 
-  JavaScript web version of the
-  Python cybersecurity simulation.
+  JavaScript version of the Python
+  cybersecurity simulation.
 
-  This is a fictional simulation.
-  It does not access real systems.
+  This is a fictional game.
+
+  It does not connect to or interact
+  with real computer systems.
 */
 
-
-/* GAME STATE */
 
 let playerName = "";
 let level = 1;
@@ -864,9 +801,10 @@ let heat = 0;
 let energy = 100;
 let mission = 1;
 let busy = false;
+let gameStarted = false;
 
 
-/* MISSION DATA */
+/* MISSIONS */
 
 const missions = [
 
@@ -903,7 +841,7 @@ const missions = [
     difficulty: "HARD",
     reward: 1000,
     description:
-      "Your client has provided incomplete information. Decide how far you are willing to go."
+      "Your client provided incomplete information. Decide how far you are willing to go."
   },
 
   {
@@ -978,12 +916,106 @@ const action3 =
   document.getElementById("action3");
 
 
-/* START GAME */
+/* HEIGHT */
 
-function startGame() {
+function reportHeight() {
+
+  const height =
+    document.documentElement.scrollHeight;
+
+  window.parent.postMessage(
+    {
+      type: "hackerSimulatorHeight",
+      height: height
+    },
+    "*"
+  );
+
+}
+
+
+const heightObserver =
+  new ResizeObserver(function() {
+
+    reportHeight();
+
+  });
+
+
+heightObserver.observe(
+  document.getElementById("game")
+);
+
+
+window.addEventListener(
+  "load",
+  reportHeight
+);
+
+window.addEventListener(
+  "resize",
+  reportHeight
+);
+
+
+/* DELAY */
+
+function sleep(ms) {
+
+  return new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
+
+}
+
+
+/* TERMINAL */
+
+async function typeLine(
+  text,
+  className = ""
+) {
+
+  const line =
+    document.createElement("div");
+
+  line.className =
+    "line " + className;
+
+  terminal.appendChild(line);
+
+
+  for (const character of text) {
+
+    line.textContent += character;
+
+    await sleep(16);
+
+  }
+
+
+  terminal.scrollTop =
+    terminal.scrollHeight;
+
+}
+
+
+/* CLEAR */
+
+function clearTerminal() {
+
+  terminal.innerHTML = "";
+
+}
+
+
+/* START */
+
+async function startGame() {
 
   const enteredName =
     nameInput.value.trim();
+
 
   if (!enteredName) {
 
@@ -993,20 +1025,27 @@ function startGame() {
       "#ef6262";
 
     return;
+
   }
 
 
   nameInput.style.borderColor =
     "#293341";
 
+
   playerName =
     enteredName;
+
+
+  gameStarted = true;
+
 
   startScreen.style.display =
     "none";
 
   gameArea.style.display =
     "block";
+
 
   updateStats();
 
@@ -1015,22 +1054,32 @@ function startGame() {
   clearTerminal();
 
 
-  typeLine(
-    "> Welcome, " +
-    playerName +
-    ".",
+  await typeLine(
+    "> Operator identified: " +
+    playerName,
     "system"
   );
 
 
-  sleep(300).then(function() {
+  await sleep(250);
 
-    typeLine(
-      "> Simulation initialized.",
-      "success"
-    );
 
-  });
+  await typeLine(
+    "> Simulation initialized.",
+    "success"
+  );
+
+
+  await sleep(250);
+
+
+  await typeLine(
+    "> Welcome to the network.",
+    "system"
+  );
+
+
+  reportHeight();
 
 }
 
@@ -1057,59 +1106,7 @@ nameInput.addEventListener(
 );
 
 
-/* DELAY */
-
-function sleep(ms) {
-
-  return new Promise(resolve =>
-    setTimeout(resolve, ms)
-  );
-
-}
-
-
-/* TERMINAL TYPING */
-
-async function typeLine(
-  text,
-  className = ""
-) {
-
-  const line =
-    document.createElement("div");
-
-  line.className =
-    "line " + className;
-
-  terminal.appendChild(line);
-
-
-  for (const character of text) {
-
-    line.textContent +=
-      character;
-
-    await sleep(18);
-
-  }
-
-
-  terminal.scrollTop =
-    terminal.scrollHeight;
-
-}
-
-
-/* CLEAR TERMINAL */
-
-function clearTerminal() {
-
-  terminal.innerHTML = "";
-
-}
-
-
-/* UPDATE STATS */
+/* STATS */
 
 function updateStats() {
 
@@ -1129,36 +1126,70 @@ function updateStats() {
     energy + "%";
 
 
-  heatDisplay.style.color =
-    heat >= 75
-      ? "#ef6262"
-      : heat >= 40
-        ? "#e5b84b"
-        : "#4bd68b";
+  if (heat >= 75) {
+
+    heatDisplay.style.color =
+      "#ef6262";
+
+  }
+
+  else if (heat >= 40) {
+
+    heatDisplay.style.color =
+      "#e5b84b";
+
+  }
+
+  else {
+
+    heatDisplay.style.color =
+      "#4bd68b";
+
+  }
 
 
-  energyDisplay.style.color =
-    energy <= 25
-      ? "#ef6262"
-      : energy <= 50
-        ? "#e5b84b"
-        : "#4ca8ff";
+  if (energy <= 25) {
+
+    energyDisplay.style.color =
+      "#ef6262";
+
+  }
+
+  else if (energy <= 50) {
+
+    energyDisplay.style.color =
+      "#e5b84b";
+
+  }
+
+  else {
+
+    energyDisplay.style.color =
+      "#4ca8ff";
+
+  }
+
+
+  reportHeight();
 
 }
 
 
-/* ADD XP */
+/* XP */
 
 async function addXP(amount) {
 
   xp += amount;
 
 
-  if (xp >= 100) {
+  while (xp >= 100) {
 
     xp -= 100;
 
     level++;
+
+
+    updateStats();
 
 
     await typeLine(
@@ -1229,15 +1260,16 @@ function restoreEnergy() {
 }
 
 
-/* LOAD MISSION */
+/* MISSION */
 
 function loadMission() {
 
   if (mission > missions.length) {
 
-    finishGame();
+    showCampaignComplete();
 
     return;
+
   }
 
 
@@ -1274,10 +1306,12 @@ function loadMission() {
 
   setButtons();
 
+  reportHeight();
+
 }
 
 
-/* BUTTON TEXT */
+/* BUTTON LABELS */
 
 function setButtons() {
 
@@ -1316,7 +1350,7 @@ function setButtons() {
       "SECURITY ANALYSIS";
 
     action3.textContent =
-      "ATTEMPT ACCESS";
+      "ABORT";
 
   }
 
@@ -1349,7 +1383,7 @@ function setButtons() {
 }
 
 
-/* BUTTON CONTROL */
+/* BUTTON LOCKING */
 
 function lockButtons() {
 
@@ -1373,7 +1407,7 @@ function unlockButtons() {
 }
 
 
-/* RANDOM SUCCESS */
+/* RANDOM CHANCE */
 
 function success(chance) {
 
@@ -1388,18 +1422,21 @@ action1.addEventListener(
   "click",
   async function() {
 
-    if (busy) return;
+    if (busy || !gameStarted) return;
 
-
-    clearTerminal();
 
     lockButtons();
 
+    clearTerminal();
 
-    if (energy < 10) {
+
+    const energyCost = 10;
+
+
+    if (energy < energyCost) {
 
       await typeLine(
-        "Not enough energy.",
+        "Not enough energy. Use REST.",
         "error"
       );
 
@@ -1410,13 +1447,13 @@ action1.addEventListener(
     }
 
 
-    useEnergy(10);
+    useEnergy(energyCost);
 
 
     await typeLine(
       "> " +
       playerName +
-      " connected to simulation.",
+      " initiated operation.",
       "system"
     );
 
@@ -1430,130 +1467,130 @@ action1.addEventListener(
     );
 
 
-    await sleep(400);
+    await sleep(450);
 
 
     await typeLine(
-      "Analyzing simulated system...",
+      "Analyzing simulated security...",
       "system"
     );
 
 
-    await sleep(400);
+    await sleep(450);
 
 
     await typeLine(
-      "Scan complete.",
+      "Analysis complete.",
       "success"
     );
 
 
+    const data =
+      missions[mission - 1];
+
+
+    let xpReward = 30;
+
+
     if (mission === 1) {
 
-      await typeLine(
-        "Security Level: LOW",
-        "success"
-      );
-
-
-      await typeLine(
-        "+30 XP",
-        "highlight"
-      );
-
-
-      await addXP(30);
-
-      addMoney(300);
-
-      addHeat(5);
-
-      mission++;
-
-      loadMission();
+      xpReward = 30;
 
     }
 
     else if (mission === 2) {
 
-      await typeLine(
-        "Weakness discovered.",
-        "success"
-      );
-
-
-      await addXP(40);
-
-      addHeat(10);
+      xpReward = 40;
 
     }
 
     else if (mission === 3) {
 
-      await typeLine(
-        "Infrastructure mapped.",
-        "success"
-      );
-
-
-      await addXP(35);
-
-      addHeat(10);
+      xpReward = 50;
 
     }
 
     else if (mission === 4) {
 
-      await typeLine(
-        "Client records appear suspicious.",
-        "warning"
-      );
-
-
-      await addXP(60);
-
-      addHeat(15);
+      xpReward = 65;
 
     }
 
     else {
 
+      xpReward = 100;
+
+    }
+
+
+    await typeLine(
+      "+" +
+      xpReward +
+      " XP",
+      "highlight"
+    );
+
+
+    await addXP(xpReward);
+
+
+    if (mission < 5) {
+
+      addMoney(
+        Math.floor(data.reward * 0.6)
+      );
+
+      addHeat(5);
+
+
       await typeLine(
-        "Final security analysis complete.",
+        "Mission objective completed.",
         "success"
       );
 
 
-      if (success(45 + level * 6)) {
-
-        await addXP(100);
-
-        addMoney(2000);
-
-        mission++;
-
-        await finishGame();
-
-      }
-
-      else {
-
-        addHeat(35);
+      mission++;
 
 
-        await typeLine(
-          "Operation failed.",
-          "error"
-        );
+      await sleep(500);
 
-      }
+
+      loadMission();
+
+
+      await typeLine(
+        "Next mission available.",
+        "system"
+      );
+
+    }
+
+    else {
+
+      addMoney(data.reward);
+
+      addHeat(15);
+
+      await typeLine(
+        "Final operation completed.",
+        "success"
+      );
+
+
+      mission++;
+
+
+      await sleep(500);
+
+
+      showCampaignComplete();
 
     }
 
 
     unlockButtons();
 
-    loadMission();
+    reportHeight();
 
   }
 );
@@ -1565,24 +1602,24 @@ action2.addEventListener(
   "click",
   async function() {
 
-    if (busy) return;
+    if (busy || !gameStarted) return;
 
-
-    clearTerminal();
 
     lockButtons();
+
+    clearTerminal();
 
 
     const cost =
       mission >= 4
-        ? 35
-        : 25;
+        ? 30
+        : 20;
 
 
     if (energy < cost) {
 
       await typeLine(
-        "Not enough energy.",
+        "Not enough energy. Use REST.",
         "error"
       );
 
@@ -1615,18 +1652,22 @@ action2.addEventListener(
 
 
     const chance =
-      30 + level * 7;
+      Math.min(
+        85,
+        30 + level * 8
+      );
 
 
     if (success(chance)) {
 
       await typeLine(
-        "Access successful!",
+        "Access successful.",
         "success"
       );
 
 
       addHeat(20);
+
 
       await addXP(50);
 
@@ -1636,13 +1677,33 @@ action2.addEventListener(
       );
 
 
-      mission++;
+      if (mission < missions.length) {
+
+        mission++;
 
 
-      await sleep(300);
+        await sleep(400);
 
 
-      loadMission();
+        await typeLine(
+          "Mission completed.",
+          "success"
+        );
+
+
+        loadMission();
+
+      }
+
+      else {
+
+        mission++;
+
+        await sleep(400);
+
+        showCampaignComplete();
+
+      }
 
     }
 
@@ -1667,6 +1728,8 @@ action2.addEventListener(
 
     unlockButtons();
 
+    reportHeight();
+
   }
 );
 
@@ -1677,12 +1740,12 @@ action3.addEventListener(
   "click",
   async function() {
 
-    if (busy) return;
+    if (busy || !gameStarted) return;
 
-
-    clearTerminal();
 
     lockButtons();
+
+    clearTerminal();
 
 
     if (mission === 4) {
@@ -1695,18 +1758,20 @@ action3.addEventListener(
 
       removeHeat(15);
 
-      mission++;
 
-      loadMission();
+      await sleep(300);
 
-    }
-
-    else if (mission === 5) {
 
       await typeLine(
-        "Final operation aborted.",
-        "warning"
+        "Mission abandoned safely.",
+        "success"
       );
+
+
+      mission++;
+
+
+      loadMission();
 
     }
 
@@ -1717,22 +1782,36 @@ action3.addEventListener(
         "warning"
       );
 
+
+      removeHeat(5);
+
+
+      await typeLine(
+        "Heat reduced by 5%.",
+        "success"
+      );
+
     }
 
 
     unlockButtons();
 
+    reportHeight();
+
   }
 );
 
 
-/* STATS */
+/* STATS BUTTON */
 
 document
   .getElementById("statsButton")
   .addEventListener(
     "click",
     async function() {
+
+      if (busy || !gameStarted) return;
+
 
       clearTerminal();
 
@@ -1798,30 +1877,46 @@ document
     "click",
     async function() {
 
-      if (busy) return;
+      if (busy || !gameStarted) return;
 
-
-      clearTerminal();
 
       lockButtons();
 
+      clearTerminal();
+
 
       await typeLine(
-        "Returning to safe house...",
+        "> Returning to safe house...",
         "system"
       );
 
 
-      await sleep(400);
+      await sleep(450);
 
 
       await typeLine(
-        "Resting...",
+        "> Securing connection...",
         "system"
       );
 
 
-      await sleep(600);
+      await sleep(450);
+
+
+      await typeLine(
+        "> Resting...",
+        "system"
+      );
+
+
+      await sleep(700);
+
+
+      const oldEnergy =
+        energy;
+
+      const oldHeat =
+        heat;
 
 
       restoreEnergy();
@@ -1830,18 +1925,32 @@ document
 
 
       await typeLine(
-        "Energy restored.",
+        "> Energy: " +
+        oldEnergy +
+        "% → 100%",
         "success"
       );
 
 
       await typeLine(
-        "Heat reduced.",
+        "> Heat: " +
+        oldHeat +
+        "% → " +
+        heat +
+        "%",
         "success"
       );
 
 
+      await typeLine(
+        "> Ready for next operation.",
+        "system"
+      );
+
+
       unlockButtons();
+
+      reportHeight();
 
     }
   );
@@ -1855,13 +1964,17 @@ document
     "click",
     async function() {
 
-      clearTerminal();
+      if (busy || !gameStarted) return;
+
 
       lockButtons();
 
 
+      clearTerminal();
+
+
       await typeLine(
-        "Disconnecting from simulation...",
+        "> Disconnecting...",
         "system"
       );
 
@@ -1870,21 +1983,57 @@ document
 
 
       await typeLine(
-        "Session terminated.",
+        "> Secure session terminated.",
         "success"
       );
+
+
+      await sleep(700);
+
+
+      /*
+        Return to the start screen.
+
+        This fixes the original problem where
+        disconnecting permanently ended the game.
+      */
+
+
+      gameStarted = false;
+
+      busy = false;
+
+
+      gameArea.style.display =
+        "none";
+
+      startScreen.style.display =
+        "block";
+
+
+      nameInput.value =
+        "";
+
+
+      nameInput.focus();
+
+
+      reportHeight();
 
     }
   );
 
 
-/* ENDING */
+/* CAMPAIGN COMPLETE */
 
-async function finishGame() {
+async function showCampaignComplete() {
 
   clearTerminal();
 
-  lockButtons();
+
+  action1.disabled = true;
+  action2.disabled = true;
+  action3.disabled = true;
 
 
   await typeLine(
@@ -1926,6 +2075,9 @@ async function finishGame() {
   );
 
 
+  await sleep(300);
+
+
   if (heat <= 25) {
 
     await typeLine(
@@ -1962,7 +2114,27 @@ async function finishGame() {
 
   }
 
+
+  await sleep(300);
+
+
+  await typeLine(
+    "Use DISCONNECT to begin a new run.",
+    "system"
+  );
+
+
+  reportHeight();
+
 }
+
+
+/* INITIAL HEIGHT */
+
+setTimeout(
+  reportHeight,
+  100
+);
 
 </script>
 
