@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hacker Simulator</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background: #080a0f;
+  color: #dce3eb;
+  font-family: "Courier New", Courier, monospace;
+  overflow-x: hidden;
+}
+
+body {
+  padding: 24px 15px;
+}
+
+#game {
+  width: 100%;
+  max-width: 780px;
+  margin: auto;
+  background: #0d1016;
+  border: 1px solid #242b36;
+}
+
+/* HEADER */
+
+#header {
+  padding: 24px;
+  background: #090c11;
+  border-bottom: 1px solid #242b36;
+}
+
+#headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#title {
+  margin: 0;
+  color: #ffffff;
+  font-size: 25px;
+  letter-spacing: 2px;
+}
+
+#online {
+  color: #4bd68b;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+#subtitle {
+  margin: 7px 0 0;
+  color: #657184;
+  font-size: 11px;
+}
+
+/* START SCREEN */
+
+#startScreen {
+  padding: 48px 30px;
+  text-align: center;
+}
+
+.startLabel {
+  margin-bottom: 14px;
+  color: #647184;
+  font-size: 10px;
+  letter-spacing: 1.7px;
+}
+
+#startScreen h2 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-size: 21px;
+}
+
+.startDescription {
+  max-width: 500px;
+  margin: 0 auto 25px;
+  color: #7e8999;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+#nameInput {
+  width: 100%;
+  max-width: 440px;
+  padding: 13px;
+  background: #06080c;
+  color: #ffffff;
+  border: 1px solid #293341;
+  outline: none;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+  text-align: center;
+}
+
+#nameInput:focus {
+  border-color: #4ca8ff;
+}
+
+#nameInput::placeholder {
+  color: #596575;
+}
+
+#startButton {
+  width: 100%;
+  max-width: 440px;
+  margin-top: 10px;
+  padding: 13px;
+  background: #102338;
+  color: #63b3ff;
+  border: 1px solid #245b8e;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+#startButton:hover {
+  background: #172f47;
+  border-color: #4ca8ff;
+  color: #ffffff;
+}
+
+.startWarning {
+  margin-top: 22px;
+  color: #4f5b6b;
+  font-size: 8px;
+  line-height: 1.5;
+}
+
+/* GAME */
+
+#gameArea {
+  display: none;
+}
+
+/* STATS */
+
+#stats {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-bottom: 1px solid #242b36;
+}
+
+.stat {
+  padding: 13px 5px;
+  text-align: center;
+  border-right: 1px solid #242b36;
+}
+
+.stat:last-child {
+  border-right: 0;
+}
+
+.statLabel {
+  display: block;
+  margin-bottom: 5px;
+  color: #596575;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+.statValue {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#money {
+  color: #4bd68b;
+}
+
+#heat {
+  color: #e5b84b;
+}
+
+#energy {
+  color: #4ca8ff;
+}
+
+/* CONTENT */
+
+#content {
+  padding: 22px;
+}
+
+.label {
+  margin-bottom: 9px;
+  color: #647184;
+  font-size: 9px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+/* TERMINAL */
+
+#terminal {
+  height: 190px;
+  padding: 16px;
+  background: #06080c;
+  border: 1px solid #202733;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.line {
+  margin-bottom: 8px;
+  color: #929dac;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.system {
+  color: #5ca8ff;
+}
+
+.success {
+  color: #4bd68b;
+}
+
+.warning {
+  color: #e5b84b;
+}
+
+.error {
+  color: #ef6262;
+}
+
+.highlight {
+  color: #c982ff;
+}
+
+/* MISSION */
+
+#mission {
+  margin-top: 17px;
+  padding: 19px;
+  background: #0a0d12;
+  border: 1px solid #242b36;
+}
+
+#missionNumber {
+  color: #647184;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+
+#missionTitle {
+  margin: 7px 0 9px;
+  color: #ffffff;
+  font-size: 19px;
+}
+
+#description {
+  margin-bottom: 15px;
+  color: #8995a5;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+#details {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 13px;
+}
+
+.detail {
+  flex: 1;
+  padding: 10px;
+  background: #080b10;
+  border: 1px solid #1e2631;
+}
+
+.detailLabel {
+  display: block;
+  margin-bottom: 5px;
+  color: #596575;
+  font-size: 8px;
+}
+
+.detailValue {
+  color: #dce3eb;
+  font-size: 11px;
+}
+
+/* ACTIONS */
+
+#actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+button {
+  padding: 12px 7px;
+  background: #10151d;
+  color: #9ba7b7;
+  border: 1px solid #293341;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: .8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #17202b;
+  color: #ffffff;
+  border-color: #4ca8ff;
+}
+
+button:disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+.primary {
+  color: #63b3ff;
+  background: #102338;
+  border-color: #245b8e;
+}
+
+/* MENU */
+
+#menu {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+  body {
+    padding: 0;
+  }
+
+  #game {
+    max-width: none;
+    border-left: 0;
+    border-right: 0;
+  }
+
+  #header {
+    padding: 15px 13px;
+  }
+
+  #title {
+    font-size: 18px;
+  }
+
+  #online {
+    font-size: 8px;
+  }
+
+  #subtitle {
+    margin-top: 5px;
+    font-size: 9px;
+  }
+
+  /* START */
+
+  #startScreen {
+    padding: 31px 15px;
+  }
+
+  .startLabel {
+    margin-bottom: 10px;
+    font-size: 8px;
+  }
+
+  #startScreen h2 {
+    margin-bottom: 8px;
+    font-size: 17px;
+  }
+
+  .startDescription {
+    margin-bottom: 19px;
+    font-size: 9px;
+    line-height: 1.5;
+  }
+
+  #nameInput {
+    padding: 11px;
+    font-size: 13px;
+  }
+
+  #startButton {
+    padding: 11px;
+    font-size: 9px;
+  }
+
+  .startWarning {
+    margin-top: 15px;
+    font-size: 7px;
+  }
+
+  /* STATS */
+
+  .stat {
+    padding: 10px 3px;
+  }
+
+  .statLabel {
+    margin-bottom: 4px;
+    font-size: 7px;
+  }
+
+  .statValue {
+    font-size: 13px;
+  }
+
+  /* CONTENT */
+
+  #content {
+    padding: 12px;
+  }
+
+  .label {
+    margin-bottom: 7px;
+    font-size: 7px;
+  }
+
+  /* TERMINAL */
+
+  #terminal {
+    height: 135px;
+    padding: 11px;
+  }
+
+  .line {
+    margin-bottom: 6px;
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  /* MISSION */
+
+  #mission {
+    margin-top: 11px;
+    padding: 13px;
+  }
+
+  #missionNumber {
+    font-size: 7px;
+  }
+
+  #missionTitle {
+    margin: 5px 0 7px;
+    font-size: 14px;
+  }
+
+  #description {
+    margin-bottom: 10px;
+    font-size: 9px;
+    line-height: 1.45;
+  }
+
+  #details {
+    gap: 5px;
+    margin-bottom: 9px;
+  }
+
+  .detail {
+    padding: 7px;
+  }
+
+  .detailLabel {
+    margin-bottom: 3px;
+    font-size: 6px;
+  }
+
+  .detailValue {
+    font-size: 8px;
+  }
+
+  /* BUTTONS */
+
+  #actions {
+    gap: 6px;
+  }
+
+  button {
+    padding: 9px 4px;
+    font-size: 8px;
+  }
+
+  #menu {
+    gap: 6px;
+    margin-top: 7px;
+  }
+
+}
+
+
+/* SHORT PHONE */
+
+@media (max-width: 600px) and (max-height: 700px) {
+
+  #header {
+    padding: 12px 13px;
+  }
+
+  #title {
+    font-size: 16px;
+  }
+
+  #startScreen {
+    padding: 25px 13px;
+  }
+
+  #terminal {
+    height: 120px;
+  }
+
+  #mission {
+    margin-top: 9px;
+    padding: 11px;
+  }
+
+  #missionTitle {
+    margin: 4px 0 6px;
+  }
+
+  #description {
+    margin-bottom: 8px;
+  }
+
+  #details {
+    margin-bottom: 7px;
+  }
+
+  .detail {
+    padding: 6px;
+  }
+
+  #actions {
+    gap: 5px;
+  }
+
+  button {
+    padding: 8px 3px;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div id="game">
+
+
+  <!-- HEADER -->
+
+  <div id="header">
+
+    <div id="headerRow">
+
+      <h1 id="title">
+        HACKER SIMULATOR
+      </h1>
+
+      <span id="online">
+        ● ONLINE
+      </span>
+
+    </div>
+
+    <p id="subtitle">
+      FICTIONAL CYBERSECURITY SIMULATION
+    </p>
+
+  </div>
+
+
+  <!-- START SCREEN -->
+
+  <div id="startScreen">
+
+    <div class="startLabel">
+      SECURE TERMINAL INITIALIZATION
+    </div>
+
+    <h2>
+      IDENTIFY OPERATOR
+    </h2>
+
+    <p class="startDescription">
+      Enter your operator name to begin the simulation.
+      Your progress exists only during this browser session.
+    </p>
+
+    <input
+      type="text"
+      id="nameInput"
+      placeholder="Enter operator name"
+      maxlength="20"
+      autocomplete="off"
+    >
+
+    <button id="startButton">
+      INITIALIZE SIMULATION
+    </button>
+
+    <div class="startWarning">
+      FICTIONAL SIMULATION — NO REAL SYSTEMS ARE ACCESSED
+    </div>
+
+  </div>
+
+
+  <!-- GAME AREA -->
+
+  <div id="gameArea">
+
+
+    <!-- PLAYER STATS -->
+
+    <div id="stats">
+
+      <div class="stat">
+
+        <span class="statLabel">
+          LEVEL
+        </span>
+
+        <span
+          class="statValue"
+          id="level">
+          1
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <span class="statLabel">
+          XP
+        </span>
+
+        <span
+          class="statValue"
+          id="xp">
+          0
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <span class="statLabel">
+          MONEY
+        </span>
+
+        <span
+          class="statValue"
+          id="money">
+          $500
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <span class="statLabel">
+          HEAT
+        </span>
+
+        <span
+          class="statValue"
+          id="heat">
+          0%
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <span class="statLabel">
+          ENERGY
+        </span>
+
+        <span
+          class="statValue"
+          id="energy">
+          100%
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div id="content">
+
+
+      <!-- TERMINAL -->
+
+      <div class="label">
+        SIMULATION TERMINAL
+      </div>
+
+      <div id="terminal"></div>
+
+
+      <!-- MISSION -->
+
+      <div id="mission">
+
+        <div id="missionNumber">
+          MISSION 1 OF 5
+        </div>
+
+        <h2 id="missionTitle">
+          First Connection
+        </h2>
+
+        <div id="description">
+          Perform a fictional security assessment
+          against Nova Systems.
+        </div>
+
+
+        <div id="details">
+
+          <div class="detail">
+
+            <span class="detailLabel">
+              TARGET
+            </span>
+
+            <span
+              class="detailValue"
+              id="target">
+              NOVA SYSTEMS
+            </span>
+
+          </div>
+
+
+          <div class="detail">
+
+            <span class="detailLabel">
+              DIFFICULTY
+            </span>
+
+            <span
+              class="detailValue"
+              id="difficulty">
+              EASY
+            </span>
+
+          </div>
+
+
+          <div class="detail">
+
+            <span class="detailLabel">
+              REWARD
+            </span>
+
+            <span
+              class="detailValue"
+              id="reward">
+              $300
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div id="actions">
+
+          <button
+            class="primary"
+            id="action1">
+            RUN SCAN
+          </button>
+
+          <button id="action2">
+            DIRECT ACCESS
+          </button>
+
+          <button id="action3">
+            ABORT
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- MENU -->
+
+      <div id="menu">
+
+        <button id="statsButton">
+          STATS
+        </button>
+
+        <button id="restButton">
+          REST
+        </button>
+
+        <button id="disconnectButton">
+          DISCONNECT
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/*
+  Hacker Simulator
+
+  JavaScript web version of the
+  Python cybersecurity simulation.
+
+  This is a fictional simulation.
+  It does not access real systems.
+*/
+
+
+/* GAME STATE */
+
+let playerName = "";
+let level = 1;
+let xp = 0;
+let money = 500;
+let heat = 0;
+let energy = 100;
+let mission = 1;
+let busy = false;
+
+
+/* MISSION DATA */
+
+const missions = [
+
+  {
+    title: "First Connection",
+    target: "NOVA SYSTEMS",
+    difficulty: "EASY",
+    reward: 300,
+    description:
+      "Perform a fictional security assessment against Nova Systems."
+  },
+
+  {
+    title: "The Archive",
+    target: "BLACKSTONE ARCHIVE",
+    difficulty: "EASY",
+    reward: 450,
+    description:
+      "Analyze a fictional archive and locate simulated security weaknesses."
+  },
+
+  {
+    title: "The Corporation",
+    target: "OMEGA DYNAMICS",
+    difficulty: "MEDIUM",
+    reward: 750,
+    description:
+      "Investigate a fictional corporate network and its simulated security."
+  },
+
+  {
+    title: "The Double Cross",
+    target: "UNKNOWN",
+    difficulty: "HARD",
+    reward: 1000,
+    description:
+      "Your client has provided incomplete information. Decide how far you are willing to go."
+  },
+
+  {
+    title: "Final Operation",
+    target: "CLASSIFIED",
+    difficulty: "EXTREME",
+    reward: 2000,
+    description:
+      "Your final contract. Everything you have learned leads to this operation."
+  }
+
+];
+
+
+/* ELEMENTS */
+
+const startScreen =
+  document.getElementById("startScreen");
+
+const gameArea =
+  document.getElementById("gameArea");
+
+const nameInput =
+  document.getElementById("nameInput");
+
+const startButton =
+  document.getElementById("startButton");
+
+const terminal =
+  document.getElementById("terminal");
+
+const levelDisplay =
+  document.getElementById("level");
+
+const xpDisplay =
+  document.getElementById("xp");
+
+const moneyDisplay =
+  document.getElementById("money");
+
+const heatDisplay =
+  document.getElementById("heat");
+
+const energyDisplay =
+  document.getElementById("energy");
+
+const missionNumber =
+  document.getElementById("missionNumber");
+
+const missionTitle =
+  document.getElementById("missionTitle");
+
+const description =
+  document.getElementById("description");
+
+const target =
+  document.getElementById("target");
+
+const difficulty =
+  document.getElementById("difficulty");
+
+const reward =
+  document.getElementById("reward");
+
+const action1 =
+  document.getElementById("action1");
+
+const action2 =
+  document.getElementById("action2");
+
+const action3 =
+  document.getElementById("action3");
+
+
+/* START GAME */
+
+function startGame() {
+
+  const enteredName =
+    nameInput.value.trim();
+
+  if (!enteredName) {
+
+    nameInput.focus();
+
+    nameInput.style.borderColor =
+      "#ef6262";
+
+    return;
+  }
+
+
+  nameInput.style.borderColor =
+    "#293341";
+
+  playerName =
+    enteredName;
+
+  startScreen.style.display =
+    "none";
+
+  gameArea.style.display =
+    "block";
+
+  updateStats();
+
+  loadMission();
+
+  clearTerminal();
+
+
+  typeLine(
+    "> Welcome, " +
+    playerName +
+    ".",
+    "system"
+  );
+
+
+  sleep(300).then(function() {
+
+    typeLine(
+      "> Simulation initialized.",
+      "success"
+    );
+
+  });
+
+}
+
+
+startButton.addEventListener(
+  "click",
+  startGame
+);
+
+
+nameInput.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (event.key === "Enter") {
+
+      event.preventDefault();
+
+      startGame();
+
+    }
+
+  }
+);
+
+
+/* DELAY */
+
+function sleep(ms) {
+
+  return new Promise(resolve =>
+    setTimeout(resolve, ms)
+  );
+
+}
+
+
+/* TERMINAL TYPING */
+
+async function typeLine(
+  text,
+  className = ""
+) {
+
+  const line =
+    document.createElement("div");
+
+  line.className =
+    "line " + className;
+
+  terminal.appendChild(line);
+
+
+  for (const character of text) {
+
+    line.textContent +=
+      character;
+
+    await sleep(18);
+
+  }
+
+
+  terminal.scrollTop =
+    terminal.scrollHeight;
+
+}
+
+
+/* CLEAR TERMINAL */
+
+function clearTerminal() {
+
+  terminal.innerHTML = "";
+
+}
+
+
+/* UPDATE STATS */
+
+function updateStats() {
+
+  levelDisplay.textContent =
+    level;
+
+  xpDisplay.textContent =
+    xp;
+
+  moneyDisplay.textContent =
+    "$" + money;
+
+  heatDisplay.textContent =
+    heat + "%";
+
+  energyDisplay.textContent =
+    energy + "%";
+
+
+  heatDisplay.style.color =
+    heat >= 75
+      ? "#ef6262"
+      : heat >= 40
+        ? "#e5b84b"
+        : "#4bd68b";
+
+
+  energyDisplay.style.color =
+    energy <= 25
+      ? "#ef6262"
+      : energy <= 50
+        ? "#e5b84b"
+        : "#4ca8ff";
+
+}
+
+
+/* ADD XP */
+
+async function addXP(amount) {
+
+  xp += amount;
+
+
+  if (xp >= 100) {
+
+    xp -= 100;
+
+    level++;
+
+
+    await typeLine(
+      "LEVEL UP! You are now level " +
+      level,
+      "highlight"
+    );
+
+  }
+
+
+  updateStats();
+
+}
+
+
+/* MONEY */
+
+function addMoney(amount) {
+
+  money += amount;
+
+  updateStats();
+
+}
+
+
+/* HEAT */
+
+function addHeat(amount) {
+
+  heat =
+    Math.min(100, heat + amount);
+
+  updateStats();
+
+}
+
+
+function removeHeat(amount) {
+
+  heat =
+    Math.max(0, heat - amount);
+
+  updateStats();
+
+}
+
+
+/* ENERGY */
+
+function useEnergy(amount) {
+
+  energy =
+    Math.max(0, energy - amount);
+
+  updateStats();
+
+}
+
+
+function restoreEnergy() {
+
+  energy = 100;
+
+  updateStats();
+
+}
+
+
+/* LOAD MISSION */
+
+function loadMission() {
+
+  if (mission > missions.length) {
+
+    finishGame();
+
+    return;
+  }
+
+
+  const data =
+    missions[mission - 1];
+
+
+  missionNumber.textContent =
+    "MISSION " +
+    mission +
+    " OF " +
+    missions.length;
+
+
+  missionTitle.textContent =
+    data.title;
+
+
+  description.textContent =
+    data.description;
+
+
+  target.textContent =
+    data.target;
+
+
+  difficulty.textContent =
+    data.difficulty;
+
+
+  reward.textContent =
+    "$" + data.reward;
+
+
+  setButtons();
+
+}
+
+
+/* BUTTON TEXT */
+
+function setButtons() {
+
+  if (mission === 1) {
+
+    action1.textContent =
+      "RUN SCAN";
+
+    action2.textContent =
+      "DIRECT ACCESS";
+
+    action3.textContent =
+      "ABORT";
+
+  }
+
+  else if (mission === 2) {
+
+    action1.textContent =
+      "ANALYZE";
+
+    action2.textContent =
+      "ATTEMPT ACCESS";
+
+    action3.textContent =
+      "ABORT";
+
+  }
+
+  else if (mission === 3) {
+
+    action1.textContent =
+      "RECON";
+
+    action2.textContent =
+      "SECURITY ANALYSIS";
+
+    action3.textContent =
+      "ATTEMPT ACCESS";
+
+  }
+
+  else if (mission === 4) {
+
+    action1.textContent =
+      "INVESTIGATE";
+
+    action2.textContent =
+      "CONTINUE";
+
+    action3.textContent =
+      "WALK AWAY";
+
+  }
+
+  else {
+
+    action1.textContent =
+      "PROCEED";
+
+    action2.textContent =
+      "TAKE THE RISK";
+
+    action3.textContent =
+      "ABORT";
+
+  }
+
+}
+
+
+/* BUTTON CONTROL */
+
+function lockButtons() {
+
+  busy = true;
+
+  action1.disabled = true;
+  action2.disabled = true;
+  action3.disabled = true;
+
+}
+
+
+function unlockButtons() {
+
+  busy = false;
+
+  action1.disabled = false;
+  action2.disabled = false;
+  action3.disabled = false;
+
+}
+
+
+/* RANDOM SUCCESS */
+
+function success(chance) {
+
+  return Math.random() * 100 < chance;
+
+}
+
+
+/* ACTION 1 */
+
+action1.addEventListener(
+  "click",
+  async function() {
+
+    if (busy) return;
+
+
+    clearTerminal();
+
+    lockButtons();
+
+
+    if (energy < 10) {
+
+      await typeLine(
+        "Not enough energy.",
+        "error"
+      );
+
+      unlockButtons();
+
+      return;
+
+    }
+
+
+    useEnergy(10);
+
+
+    await typeLine(
+      "> " +
+      playerName +
+      " connected to simulation.",
+      "system"
+    );
+
+
+    await sleep(300);
+
+
+    await typeLine(
+      "Initializing fictional scanner...",
+      "system"
+    );
+
+
+    await sleep(400);
+
+
+    await typeLine(
+      "Analyzing simulated system...",
+      "system"
+    );
+
+
+    await sleep(400);
+
+
+    await typeLine(
+      "Scan complete.",
+      "success"
+    );
+
+
+    if (mission === 1) {
+
+      await typeLine(
+        "Security Level: LOW",
+        "success"
+      );
+
+
+      await typeLine(
+        "+30 XP",
+        "highlight"
+      );
+
+
+      await addXP(30);
+
+      addMoney(300);
+
+      addHeat(5);
+
+      mission++;
+
+      loadMission();
+
+    }
+
+    else if (mission === 2) {
+
+      await typeLine(
+        "Weakness discovered.",
+        "success"
+      );
+
+
+      await addXP(40);
+
+      addHeat(10);
+
+    }
+
+    else if (mission === 3) {
+
+      await typeLine(
+        "Infrastructure mapped.",
+        "success"
+      );
+
+
+      await addXP(35);
+
+      addHeat(10);
+
+    }
+
+    else if (mission === 4) {
+
+      await typeLine(
+        "Client records appear suspicious.",
+        "warning"
+      );
+
+
+      await addXP(60);
+
+      addHeat(15);
+
+    }
+
+    else {
+
+      await typeLine(
+        "Final security analysis complete.",
+        "success"
+      );
+
+
+      if (success(45 + level * 6)) {
+
+        await addXP(100);
+
+        addMoney(2000);
+
+        mission++;
+
+        await finishGame();
+
+      }
+
+      else {
+
+        addHeat(35);
+
+
+        await typeLine(
+          "Operation failed.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    unlockButtons();
+
+    loadMission();
+
+  }
+);
+
+
+/* ACTION 2 */
+
+action2.addEventListener(
+  "click",
+  async function() {
+
+    if (busy) return;
+
+
+    clearTerminal();
+
+    lockButtons();
+
+
+    const cost =
+      mission >= 4
+        ? 35
+        : 25;
+
+
+    if (energy < cost) {
+
+      await typeLine(
+        "Not enough energy.",
+        "error"
+      );
+
+      unlockButtons();
+
+      return;
+
+    }
+
+
+    useEnergy(cost);
+
+
+    await typeLine(
+      "Attempting simulated access...",
+      "system"
+    );
+
+
+    await sleep(500);
+
+
+    await typeLine(
+      "Security system detected activity.",
+      "warning"
+    );
+
+
+    await sleep(400);
+
+
+    const chance =
+      30 + level * 7;
+
+
+    if (success(chance)) {
+
+      await typeLine(
+        "Access successful!",
+        "success"
+      );
+
+
+      addHeat(20);
+
+      await addXP(50);
+
+
+      addMoney(
+        missions[mission - 1].reward
+      );
+
+
+      mission++;
+
+
+      await sleep(300);
+
+
+      loadMission();
+
+    }
+
+    else {
+
+      await typeLine(
+        "Access denied.",
+        "error"
+      );
+
+
+      addHeat(30);
+
+
+      await typeLine(
+        "Your attempt attracted attention.",
+        "warning"
+      );
+
+    }
+
+
+    unlockButtons();
+
+  }
+);
+
+
+/* ACTION 3 */
+
+action3.addEventListener(
+  "click",
+  async function() {
+
+    if (busy) return;
+
+
+    clearTerminal();
+
+    lockButtons();
+
+
+    if (mission === 4) {
+
+      await typeLine(
+        "You decided to walk away from the contract.",
+        "warning"
+      );
+
+
+      removeHeat(15);
+
+      mission++;
+
+      loadMission();
+
+    }
+
+    else if (mission === 5) {
+
+      await typeLine(
+        "Final operation aborted.",
+        "warning"
+      );
+
+    }
+
+    else {
+
+      await typeLine(
+        "Mission aborted.",
+        "warning"
+      );
+
+    }
+
+
+    unlockButtons();
+
+  }
+);
+
+
+/* STATS */
+
+document
+  .getElementById("statsButton")
+  .addEventListener(
+    "click",
+    async function() {
+
+      clearTerminal();
+
+
+      await typeLine(
+        "PLAYER PROFILE",
+        "highlight"
+      );
+
+
+      await typeLine(
+        "Operator: " +
+        playerName,
+        "system"
+      );
+
+
+      await typeLine(
+        "Level: " +
+        level,
+        "system"
+      );
+
+
+      await typeLine(
+        "XP: " +
+        xp,
+        "system"
+      );
+
+
+      await typeLine(
+        "Money: $" +
+        money,
+        "success"
+      );
+
+
+      await typeLine(
+        "Heat: " +
+        heat +
+        "%",
+        "warning"
+      );
+
+
+      await typeLine(
+        "Energy: " +
+        energy +
+        "%",
+        "system"
+      );
+
+    }
+  );
+
+
+/* REST */
+
+document
+  .getElementById("restButton")
+  .addEventListener(
+    "click",
+    async function() {
+
+      if (busy) return;
+
+
+      clearTerminal();
+
+      lockButtons();
+
+
+      await typeLine(
+        "Returning to safe house...",
+        "system"
+      );
+
+
+      await sleep(400);
+
+
+      await typeLine(
+        "Resting...",
+        "system"
+      );
+
+
+      await sleep(600);
+
+
+      restoreEnergy();
+
+      removeHeat(5);
+
+
+      await typeLine(
+        "Energy restored.",
+        "success"
+      );
+
+
+      await typeLine(
+        "Heat reduced.",
+        "success"
+      );
+
+
+      unlockButtons();
+
+    }
+  );
+
+
+/* DISCONNECT */
+
+document
+  .getElementById("disconnectButton")
+  .addEventListener(
+    "click",
+    async function() {
+
+      clearTerminal();
+
+      lockButtons();
+
+
+      await typeLine(
+        "Disconnecting from simulation...",
+        "system"
+      );
+
+
+      await sleep(500);
+
+
+      await typeLine(
+        "Session terminated.",
+        "success"
+      );
+
+    }
+  );
+
+
+/* ENDING */
+
+async function finishGame() {
+
+  clearTerminal();
+
+  lockButtons();
+
+
+  await typeLine(
+    "CAMPAIGN COMPLETE",
+    "highlight"
+  );
+
+
+  await sleep(300);
+
+
+  await typeLine(
+    "Congratulations, " +
+    playerName +
+    ".",
+    "success"
+  );
+
+
+  await typeLine(
+    "Final Level: " +
+    level,
+    "system"
+  );
+
+
+  await typeLine(
+    "Final Money: $" +
+    money,
+    "success"
+  );
+
+
+  await typeLine(
+    "Final Heat: " +
+    heat +
+    "%",
+    "warning"
+  );
+
+
+  if (heat <= 25) {
+
+    await typeLine(
+      "ENDING: THE GHOST",
+      "success"
+    );
+
+  }
+
+  else if (heat <= 60) {
+
+    await typeLine(
+      "ENDING: THE OPERATOR",
+      "system"
+    );
+
+  }
+
+  else if (heat <= 85) {
+
+    await typeLine(
+      "ENDING: HIGH PROFILE",
+      "warning"
+    );
+
+  }
+
+  else {
+
+    await typeLine(
+      "ENDING: BURNED",
+      "error"
+    );
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
