@@ -1,158 +1,135 @@
-# Hacker Simulator
+# Dark Kingdom
 
-A fictional cybersecurity-themed terminal game built with Python.
+A terminal-based text RPG adventure built with Python.
 
-**Play the game:** [tjordanart.com/hacker-sim](https://www.tjordanart.com/hacker-sim)
+Choose your character, fight through the Dark Forest, upgrade your gear, and face the Dark King in a final showdown.
+
+**Play the game:** [tjordanart.com/dark-kingdom](https://www.tjordanart.com/dark-kingdom)
 
 ## Overview
 
-Hacker Simulator is an interactive command-line game where the player takes on fictional cybersecurity contracts, makes decisions, completes missions, earns money and experience, and manages their **energy** and **heat** levels.
+Dark Kingdom is a turn-based RPG designed around character choice, combat strategy, exploration, and progression.
 
-The project started as a programming exercise focused on Python fundamentals and evolved into a larger game system with progression, randomized outcomes, terminal animations, multiple mission paths, and multiple endings.
-
-> **Note:** This is a fictional simulation. It does not perform real hacking, network scanning, password cracking, or unauthorized access.
+Players choose between three character classes, encounter enemies along a branching path, purchase upgrades from a merchant, and ultimately face a multi-stage final boss.
 
 ## Features
 
-- Five-mission campaign
-- Interactive player setup
-- Multiple choices and mission paths
-- Player level and XP progression
-- Money and reward system
-- Energy management
-- Heat and detection system
-- Randomized mission outcomes
-- Multiple possible endings
-- Mission difficulty progression
-- Rest system for recovering energy
-- Colorized terminal interface
-- Character-by-character terminal typing
-- Timed system messages and animations
-- Decisions that affect mission outcomes
+- **Three playable classes**
+  - Warrior
+  - Wizard
+  - Rogue
+- Unique character stats and special attacks
+- Turn-based combat
+- Regular and special attacks
+- Special attack cooldowns
+- Critical hits
+- Health potions
+- Random enemy encounters
+- Branching exploration paths
+- Castle Armory and Dungeon routes
+- Merchant shop
+- Weapons and character upgrades
+- Multi-stage final boss battle
+- Terminal-based game interface
 
-## Technologies & Concepts
+## Character Classes
 
-- **Python 3**
-- `random` for randomized mission outcomes
-- `time` for timing and terminal animations
-- ANSI escape codes for colored terminal output
-- Functions and reusable game systems
-- Loops and game-state management
-- Conditional logic
-- Lists and data structures
-- User input and validation
+Each character offers a different approach to combat.
 
-## How the Game Works
-
-The player begins by creating a hacker name and entering the fictional cybersecurity simulation.
-
-Throughout the game, several statistics are tracked:
-
-| Statistic | Purpose |
+| Class | Play Style |
 |---|---|
-| **Level** | Tracks player progression |
-| **XP** | Earned through successful actions and missions |
-| **Money** | Earned through completed contracts |
-| **Energy** | Used when performing mission actions |
-| **Heat** | Represents how much attention the player has attracted |
+| **Warrior** | Strong physical attacks and durability |
+| **Wizard** | Powerful special attacks |
+| **Rogue** | Fast and critical-hit focused |
 
-Players make decisions during each mission, with different choices producing different success rates and consequences.
+## Combat System
 
-Successful actions can provide XP, money, and mission progression. Failed actions can increase heat and affect future decisions.
+Combat takes place through turn-based encounters.
 
-The player's final heat level determines the ending of the game.
+Players can choose between regular attacks, special attacks, and healing with potions.
 
-## Terminal Interface
+Special attacks use cooldowns, requiring players to decide when to use their strongest abilities.
 
-The game uses a custom typing function to display important terminal messages one character at a time.
+Randomized combat elements such as enemy behavior and critical hits help keep encounters unpredictable.
 
-This creates a more cinematic command-line experience while demonstrating Python's `time.sleep()` functionality and terminal output control.
+## Exploration
 
-Example:
+The game features a branching path through the castle.
 
-```text
-> Initializing fictional scanner...
-> Searching simulated services...
-> Scan complete.
-```
+Players encounter different challenges and can choose between areas such as:
 
-Different message types use terminal colors to help distinguish important information during gameplay.
+- **Armory**
+- **Dungeon**
 
-## Running the Game
+Random enemy encounters can occur along the way, giving players opportunities to fight, earn rewards, and prepare for the final battle.
 
-### Requirements
+## Merchant
 
-- Python 3
+Between encounters, players can visit the Castle Merchant to purchase weapons and upgrades.
 
-### Clone the Repository
+Managing resources and deciding when to upgrade becomes an important part of progressing toward the final boss.
+
+## Final Battle
+
+The adventure culminates in a multi-stage battle against the **Dark King**.
+
+The final encounter combines the game's combat systems and progression mechanics into a larger challenge.
+
+## Requirements
+
+- Python 3.7+
+- No external dependencies
+
+The game uses only Python's standard library:
+
+- `time`
+- `random`
+
+## How to Run
+
+Clone the repository:
 
 ```bash
-git clone https://github.com/Tjordanart/hacker-simulator.git
+git clone https://github.com/Tjordanart/dark-kingdom.git
 ```
 
-### Navigate to the Project
+Navigate to the project directory:
 
 ```bash
-cd hacker-simulator
+cd dark-kingdom
 ```
 
-### Run the Game
+Run the game:
 
 ```bash
-python hacker_simulator_v2.py
+python3 DarkKingdom.py
 ```
 
-The project can also be opened and run through an IDE such as PyCharm.
+Follow the on-screen prompts to choose your character and make decisions throughout the adventure.
 
-## Project Evolution
+## Terminal Compatibility
 
-Hacker Simulator began as a simple fictional cybersecurity terminal simulation focused primarily on terminal animations and simulated cybersecurity activity.
+The game uses raw ANSI escape codes for colored terminal output.
 
-The current version expands the concept into a complete interactive game with:
+Color support works best in terminals that support ANSI escape sequences, including most modern Linux, macOS, and Windows terminals.
 
-- Player progression
-- Missions
-- XP and money
-- Energy management
-- Heat and detection
-- Randomized outcomes
-- Player decisions
-- Multiple endings
-- More structured game logic
-- Improved terminal presentation
-
-### What's Next
-
-The next planned version is a **web-based implementation using HTML, CSS, and JavaScript**.
-
-The goal is to bring the game's systems and progression into an interactive browser experience while expanding the visual and user-interface elements beyond the terminal.
+If colors appear as garbled characters, try running the game in **Windows Terminal** or **WSL**.
 
 ## What I Practiced
 
-This project gave me hands-on practice with:
+This project provided practice with:
 
-- Python fundamentals
-- Functions
-- Variables
+- Python programming
+- Functions and reusable game systems
+- Conditional logic
 - Loops
-- Conditional statements
 - User input
-- Random number generation
+- Randomization
 - Game-state management
-- Structuring larger programs
+- Turn-based combat
+- Character progression
+- Branching game logic
 - Terminal interfaces
-- Timing and animation effects
-- Building multiple systems into a single application
-
-It also serves as a foundation for exploring how the same application can be rebuilt in another programming language and environment.
-
-## Disclaimer
-
-Hacker Simulator is a fictional cybersecurity simulation created for educational and entertainment purposes.
-
-No real systems, networks, accounts, passwords, or devices are accessed, scanned, attacked, or compromised.
-
-All cybersecurity activities represented in the game are simulated.
 
 ## Author
 
