@@ -29,6 +29,8 @@ This project does not perform real hacking, network scanning, password cracking,
 * Different outcomes based on player decisions
 
 ---
+Play the game at https://www.tjordanart.com/hacker-sim
+---
 
 ## Technologies Used
 
