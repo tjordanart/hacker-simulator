@@ -1,36 +1,31 @@
 # Dark Kingdom
 
-A terminal-based text RPG adventure built with Python.
+**Personal Project**
 
-Choose your character, fight through the Dark Forest, upgrade your gear, and face the Dark King in a final showdown.
+A Python-based terminal RPG featuring turn-based combat, character progression, branching exploration, and a multi-stage final boss.
 
 **Play the game:** [tjordanart.com/dark-kingdom](https://www.tjordanart.com/dark-kingdom)
 
 ## Overview
 
-Dark Kingdom is a turn-based RPG designed around character choice, combat strategy, exploration, and progression.
+Dark Kingdom is a turn-based RPG built with Python, centered on character selection, combat strategy, exploration, and progression.
 
-Players choose between three character classes, encounter enemies along a branching path, purchase upgrades from a merchant, and ultimately face a multi-stage final boss.
+Players choose from three character classes, battle enemies along branching paths, purchase equipment upgrades from a merchant, and ultimately face the Dark King in a multi-stage final battle.
 
 ## Features
 
-- **Three playable classes**
-  - Warrior
-  - Wizard
-  - Rogue
+- Three playable character classes: Warrior, Wizard, and Rogue
 - Unique character stats and special attacks
 - Turn-based combat
 - Regular and special attacks
 - Special attack cooldowns
-- Critical hits
-- Health potions
+- Critical hits and health potions
 - Random enemy encounters
 - Branching exploration paths
 - Castle Armory and Dungeon routes
-- Merchant shop
-- Weapons and character upgrades
+- Merchant shop and equipment upgrades
 - Multi-stage final boss battle
-- Terminal-based game interface
+- Terminal-based game interface with colored output
 
 ## Character Classes
 
@@ -40,100 +35,33 @@ Each character offers a different approach to combat.
 |---|---|
 | **Warrior** | Strong physical attacks and durability |
 | **Wizard** | Powerful special attacks |
-| **Rogue** | Fast and critical-hit focused |
+| **Rogue** | Fast combat and critical-hit potential |
 
 ## Combat System
 
-Combat takes place through turn-based encounters.
+Combat takes place through turn-based encounters. Players choose between regular attacks, special attacks, and healing with potions.
 
-Players can choose between regular attacks, special attacks, and healing with potions.
-
-Special attacks use cooldowns, requiring players to decide when to use their strongest abilities.
-
-Randomized combat elements such as enemy behavior and critical hits help keep encounters unpredictable.
+Special attacks use cooldowns, requiring players to decide when to use their strongest abilities. Randomized combat elements, including critical hits and enemy encounters, add variety to the experience.
 
 ## Exploration
 
-The game features a branching path through the castle.
+The game features branching paths through the castle, giving players different routes and challenges as they progress.
 
-Players encounter different challenges and can choose between areas such as:
+- **Armory** — An equipment-focused route through the castle.
+- **Dungeon** — An alternative path with its own challenges.
 
-- **Armory**
-- **Dungeon**
+Random enemy encounters provide opportunities to fight, earn rewards, and prepare for the final battle.
 
-Random enemy encounters can occur along the way, giving players opportunities to fight, earn rewards, and prepare for the final battle.
+## Merchant and Upgrades
 
-## Merchant
-
-Between encounters, players can visit the Castle Merchant to purchase weapons and upgrades.
-
-Managing resources and deciding when to upgrade becomes an important part of progressing toward the final boss.
+Players can visit the Castle Merchant to purchase weapons and upgrades between encounters. Managing resources and choosing upgrades strategically helps prepare characters for increasingly difficult battles.
 
 ## Final Battle
 
-The adventure culminates in a multi-stage battle against the **Dark King**.
+The adventure culminates in a multi-stage battle against the **Dark King**. This final encounter brings together the game's combat mechanics, character abilities, and progression systems.
 
-The final encounter combines the game's combat systems and progression mechanics into a larger challenge.
+## Technology
 
-## Requirements
-
-- Python 3.7+
-- No external dependencies
-
-The game uses only Python's standard library:
-
-- `time`
-- `random`
-
-## How to Run
-
-Clone the repository:
-
-```bash
-git clone https://github.com/Tjordanart/dark-kingdom.git
-```
-
-Navigate to the project directory:
-
-```bash
-cd dark-kingdom
-```
-
-Run the game:
-
-```bash
-python3 DarkKingdom.py
-```
-
-Follow the on-screen prompts to choose your character and make decisions throughout the adventure.
-
-## Terminal Compatibility
-
-The game uses raw ANSI escape codes for colored terminal output.
-
-Color support works best in terminals that support ANSI escape sequences, including most modern Linux, macOS, and Windows terminals.
-
-If colors appear as garbled characters, try running the game in **Windows Terminal** or **WSL**.
-
-## What I Practiced
-
-This project provided practice with:
-
-- Python programming
-- Functions and reusable game systems
-- Conditional logic
-- Loops
-- User input
-- Randomization
-- Game-state management
-- Turn-based combat
-- Character progression
-- Branching game logic
-- Terminal interfaces
-
-## Author
-
-**Tyler Jordan**
-
-[GitHub](https://github.com/Tjordanart)  
-[Portfolio](https://www.tjordanart.com)
+- **Python 3.7+** — Game logic and systems
+- **`random`** — Randomized encounters and combat mechanics
+- **`time`** —
